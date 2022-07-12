@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "889164499112",
+    "project_id": "auth-demo-cf551",
+    "storage_bucket": "auth-demo-cf551.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889164499112:android:a343c476661e00392e5a9d",
+        "android_client_info": {
+          "package_name": "com.example.api"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889164499112-jjm8gdusvabl0s1tti4f6taql88gdfmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEhcAzdMoEUJ_PrPy0rz5ez5E89Si-eJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889164499112-jjm8gdusvabl0s1tti4f6taql88gdfmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

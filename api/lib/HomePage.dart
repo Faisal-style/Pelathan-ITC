@@ -1,5 +1,8 @@
 import 'dart:convert';
-
+import 'dart:ffi';
+import 'package:api/loginPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,9 +14,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   List alldata = [];
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    if (auth.currentUser != null) {
+      print(auth.currentUser!.email);
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Cat Shop"),
@@ -68,7 +79,14 @@ class _HomePageState extends State<HomePage> {
                         );
                       });
                 },
-                child: Text("Cat List"))
+                child: Text("Cat List")),
+            ElevatedButton(
+                onPressed: (() {
+                  _signOut().then((value) => Navigator.of(context)
+                      .pushReplacement(MaterialPageRoute(
+                          builder: ((context) => LoginScreen()))));
+                }),
+                child: Text("Logout"))
           ],
         ),
       ),
