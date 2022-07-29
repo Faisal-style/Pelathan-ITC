@@ -69,7 +69,6 @@ Widget _LoginButton(BuildContext context) {
             var showSnackBar =
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
             Get.off(() => HomePageState());
-            Get.back();
           });
         } catch (e) {
           print(e.toString());

@@ -82,7 +82,6 @@ class HomePageState extends StatelessWidget {
                   SnackBar snackBar = SnackBar(content: Text("Logout Sukses"));
                   var showSnackBar =
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  Get.back();
                 }),
                 child: Text("Logout"))
           ],
