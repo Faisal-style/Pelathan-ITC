@@ -4,16 +4,10 @@ import 'package:api/loginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePageState extends StatelessWidget {
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -56,24 +50,26 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                                 color: Color(0x23249FD4),
                                 borderRadius: BorderRadius.circular(20)),
-                            child: ListView(
-                              shrinkWrap: true,
-                              children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Center(
-                                  child: Text("Cat List"),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                for (var i = 0; i < alldata.length; i++)
-                                  _list(
-                                      "${alldata[i]['pict']}",
-                                      "${alldata[i]['cats']}",
-                                      "${alldata[i]['price']}")
-                              ],
+                            child: Expanded(
+                              child: ListView(
+                                shrinkWrap: true,
+                                children: [
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Center(
+                                    child: Text("Cat List"),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  for (var i = 0; i < alldata.length; i++)
+                                    _list(
+                                        "${alldata[i]['pict']}",
+                                        "${alldata[i]['cats']}",
+                                        "${alldata[i]['price']}")
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -82,9 +78,11 @@ class _HomePageState extends State<HomePage> {
                 child: Text("Cat List")),
             ElevatedButton(
                 onPressed: (() {
-                  _signOut().then((value) => Navigator.of(context)
-                      .pushReplacement(MaterialPageRoute(
-                          builder: ((context) => LoginScreen()))));
+                  _signOut().then((value) => Get.off(() => LoginScreenState()));
+                  SnackBar snackBar = SnackBar(content: Text("Logout Sukses"));
+                  var showSnackBar =
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Get.back();
                 }),
                 child: Text("Logout"))
           ],
@@ -106,7 +104,18 @@ Widget _list(String imageAsset, String name, String price) {
           children: <Widget>[
             CircleAvatar(backgroundImage: NetworkImage(imageAsset)),
             SizedBox(width: 12),
-            Text(name),
+            Column(
+              children: [
+                SizedBox(
+                    width: 70,
+                    child: Expanded(
+                        child: Text(
+                      name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ))),
+              ],
+            ),
             Spacer(),
             Container(
               decoration: BoxDecoration(

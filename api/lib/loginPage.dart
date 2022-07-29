@@ -2,20 +2,15 @@ import 'package:api/HomePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
+import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 final FirebaseAuth _firebaseauth = FirebaseAuth.instance;
 final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 TextEditingController _usernameController = TextEditingController();
 TextEditingController _passwordController = TextEditingController();
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -69,8 +64,13 @@ Widget _LoginButton(BuildContext context) {
               .signInWithEmailAndPassword(
                   email: _usernameController.text,
                   password: _passwordController.text)
-              .then((value) => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: ((context) => HomePage()))));
+              .then((value) {
+            SnackBar snackBar = SnackBar(content: Text("Login Sukses"));
+            var showSnackBar =
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            Get.off(() => HomePageState());
+            Get.back();
+          });
         } catch (e) {
           print(e.toString());
           SnackBar snackBar =
