@@ -1,9 +1,7 @@
 import 'package:api/HomePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 
 final FirebaseAuth _firebaseauth = FirebaseAuth.instance;
 final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -65,9 +63,7 @@ Widget _LoginButton(BuildContext context) {
                   email: _usernameController.text,
                   password: _passwordController.text)
               .then((value) {
-            SnackBar snackBar = SnackBar(content: Text("Login Sukses"));
-            var showSnackBar =
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            Get.snackbar("Login", "Login Sukses", isDismissible: true);
             Get.off(() => HomePageState());
           });
         } catch (e) {
